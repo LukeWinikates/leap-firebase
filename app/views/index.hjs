@@ -13,6 +13,7 @@
     <p>Welcome to {{ title }}</p>
     <canvas id="leap-overlay" width="1440" height="343"></canvas>
     <script>
+      A = [];
       $(function(){
 
         var messagesRef = new Firebase('https://jczgdhdjzwx.firebaseio-demo.com/');
@@ -32,6 +33,7 @@
           // clear last frame
           ctx.clearRect(-canvas.width/2,-canvas.height,canvas.width,canvas.height);
 
+          A.push(obj);
           // render circles based on pointable positions
           var pointablesMap = obj.pointablesMap;
           points = _.map(pointablesMap, function(p) { return {id: p.id, tipPosition: p.tipPosition}});
