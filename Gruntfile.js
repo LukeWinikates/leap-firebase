@@ -13,6 +13,12 @@ module.exports = function(grunt) {
         }
       },
       'app/build/templates.js': ["app/client/templates/**/*.hbs"]
+    },
+    watch: {
+      scripts: {
+        files: ['app/client/templates/*.hbs', 'app/client/**/*.js'],
+        tasks: ['default']
+      },
     }
   });
   grunt.loadNpmTasks('grunt-ember-templates');
