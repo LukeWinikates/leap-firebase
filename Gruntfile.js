@@ -4,15 +4,15 @@ module.exports = function(grunt) {
       options: {
         includeSourceURL: true
       },
-      'build/application.js': 'app/client/js/app.js'
+      'app/build/application.js': 'app/client/js/app.js'
     },
     emberTemplates: {
       options: {
         templateName: function(sourceFile) {
-          return sourceFile.replace(/app\/templates\//, '');
+          return sourceFile.replace(/app\/client\/templates\//, '');
         }
       },
-      'dependencies/compiled/templates.js': ["app/client/templates/**/*.hbs"]
+      'app/build/templates.js': ["app/client/templates/**/*.hbs"]
     }
   });
   grunt.loadNpmTasks('grunt-ember-templates');
