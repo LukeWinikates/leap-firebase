@@ -1,8 +1,7 @@
-App.IndexController = Ember.ObjectController.extend({
-
-  events: {
-    click: function(){
-      console.log("clicked");
+App.IndexController = Ember.Controller.extend({
+  actions: {
+    start: function(){
+      console.log('clicked');
     }
   }
 });
