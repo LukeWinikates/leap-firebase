@@ -10,6 +10,9 @@
     "connect-assets": "*",
     "ejs": "*",
     "grunt": "~0.4.1",
-    "grunt-ember-templates": "~0.4.16"
+    "grunt-ember-templates": "~0.4.16",
+    "grunt-contrib-watch": "*",
+    "grunt-ember-templates": "*",
+    "grunt-neuter": "*"
   }
 }
