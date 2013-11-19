@@ -8,9 +8,7 @@
   "dependencies": {
     "express": "3.4.4",
     "connect-assets": "*",
-    "ejs": "*"
-  },
-  "devDependencies": {
+    "ejs": "*",
     "grunt": "~0.4.1",
     "grunt-ember-templates": "~0.4.16"
   }

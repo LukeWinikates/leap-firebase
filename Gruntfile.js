@@ -26,4 +26,5 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-neuter');
 
   grunt.registerTask('default', ['emberTemplates', 'neuter']);
+  grunt.registerTask('heroku:production', ['emberTemplates', 'neuter']);
 };
