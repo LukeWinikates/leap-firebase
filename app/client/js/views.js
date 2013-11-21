@@ -3,8 +3,8 @@ App.HandVisualizerComponent = Ember.Component.extend({
     var frameSource = this.get("frameSource")
     var canvas = document.getElementById("leap-overlay");
     // fullscreen
-    canvas.width = document.body.clientWidth;
-    canvas.height = document.body.clientHeight;
+    canvas.width = 800;
+    canvas.height = 400;
     var ctx = canvas.getContext("2d");
     ctx.translate(canvas.width/2,canvas.height);
     ctx.fillStyle = "rgba(0,0,0,0.7)";
