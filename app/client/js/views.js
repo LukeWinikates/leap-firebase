@@ -33,6 +33,7 @@ App.HandVisualizerComponent = Ember.Component.extend({
     frameSource.subscribe(renderer);
   },
   willDestroyElement: function(){
+    var frameSource = this.get("frameSource")
     frameSource.stopListening(this.get('renderer'));
   }
 });
