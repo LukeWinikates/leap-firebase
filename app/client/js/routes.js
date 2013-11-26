@@ -7,6 +7,12 @@ App.Router.map(function() {
 });
 
 App.IndexRoute = Em.Route.extend({
+  redirect: function() {
+    this.transitionTo('channels')
+  }
+})
+
+App.ChannelsRoute = Em.Route.extend({
   model: function() {
     return EmberFire.Array.create({
       ref: new Firebase(App.ENV.FIREBASE_URL+ '/rooms')

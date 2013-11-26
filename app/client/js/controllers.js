@@ -1,4 +1,4 @@
-App.IndexController = Ember.ArrayController.extend({
+App.ChannelsController = Ember.ArrayController.extend({
   actions: {
     start: function(){
       var id = uuid.v4();
