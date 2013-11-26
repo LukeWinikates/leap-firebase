@@ -1,5 +1,6 @@
 App.HandVisualizerComponent = Ember.Component.extend({
   didInsertElement: function(){
+    console.log('did insert element')
     var frameSource = this.get("frameSource")
     var canvas = document.getElementById("leap-overlay");
     // fullscreen
