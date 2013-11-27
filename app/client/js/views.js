@@ -10,24 +10,26 @@ App.HandVisualizerComponent = Ember.Component.extend({
     ctx.translate(canvas.width/2,canvas.height);
     ctx.fillStyle = "rgba(0,0,0,0.7)";
 
-    var renderer = function(frame) {
+    var renderer = function(channels) {
       ctx.clearRect(-canvas.width/2,-canvas.height,canvas.width,canvas.height);
 
-      if(!frame) { return; }
-      // render circles based on pointable positions
-      var pointables = frame.pointables;
-      var points = _.map(pointables, function(p) { return {id: p.id, tipPosition: p.tipPosition}});
-      _.each(points, function(pointable) {
-        // get the pointable's position
-        if(pointable) {
-          var pos = pointable.tipPosition;
+      _.each(channels, function(frame){
+        if(!frame) { return; }
+        // render circles based on pointable positions
+        var pointables = frame.pointables;
+        var points = _.map(pointables, function(p) { return {id: p.id, tipPosition: p.tipPosition}});
+        _.each(points, function(pointable) {
+          // get the pointable's position
+          if(pointable) {
+            var pos = pointable.tipPosition;
 
-          // create a circle for each pointable
-          var radius = Math.min(600/Math.abs(pos[2]),20);
-          ctx.beginPath();
-          ctx.arc(pos[0]-radius/2,-pos[1]-radius/2,radius,0,2*Math.PI);
-          ctx.fill();
-        }
+            // create a circle for each pointable
+            var radius = Math.min(600/Math.abs(pos[2]),20);
+            ctx.beginPath();
+            ctx.arc(pos[0]-radius/2,-pos[1]-radius/2,radius,0,2*Math.PI);
+            ctx.fill();
+          }
+        });
       });
     }
     this.set('renderer', renderer);

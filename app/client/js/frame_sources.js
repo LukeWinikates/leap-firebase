@@ -8,14 +8,16 @@ App.FirebaseFramePusher = Ember.Object.extend({
     Leap.loop(function(frame){
       var pointables = frame.pointables || [];
       var points = _.map(pointables, function(p) { return {id: p.id, tipPosition: p.tipPosition}});
-      self.firebase.set({pointables: points});
+      self.firebase.update({pointables: points});
     });
   }
 })
 
 App.LeapFrameSource = Ember.Object.extend({
   subscribe:function(frameCallback) {
-    Leap.loop(frameCallback);
+    Leap.loop(function(frame) {
+      frameCallback([frame]);
+    });
   },
   stopListening: function(frameCallback) {
     Leap.loopController.removeAllListeners();

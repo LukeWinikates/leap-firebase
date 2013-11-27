@@ -4,6 +4,26 @@ App.Router.map(function() {
     this.route('broadcast', {path: '/:id/broadcast'})
     this.route('watch', {path: '/:id/watch'})
   });
+  this.route('sorry');
+});
+
+App.ApplicationRoute = Em.Route.extend({
+  model: function() {
+    var firebase = new Firebase(App.ENV.FIREBASE_URL);
+    var promise = new Em.RSVP.Promise(function(resolve, reject){
+      var simpleLogin = new FirebaseSimpleLogin(firebase, function(error, user) {
+        if(error) {
+          reject(error);
+        }
+        else {
+          App.CurrentUser = user;
+          resolve(user);
+        }
+      });
+      simpleLogin.login('anonymous');
+    });
+    return promise;
+  }
 });
 
 App.IndexRoute = Em.Route.extend({
@@ -22,7 +42,7 @@ App.ChannelsRoute = Em.Route.extend({
 
 App.ChannelsBroadcastRoute = Em.Route.extend({
   model: function(params, transition) {
-    var fb = new Firebase(App.ENV.FIREBASE_URL + '/channel/'+ params.id + '/stream');
+    var fb = new Firebase(App.ENV.FIREBASE_URL + '/channel/'+ params.id + '/stream/' + App.CurrentUser.id);
     new App.FirebaseFramePusher(fb).start();
     return {fb: fb, frameSource: new App.LeapFrameSource(), id: params.id};
   }
