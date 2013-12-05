@@ -1,6 +1,12 @@
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background-color: limegreen;
+  background-image: url('/images/tweed.png');
+}
+
+footer {
+  position: absolute;
+  bottom:0px;
+  width:100%;
 }
 
 canvas {
