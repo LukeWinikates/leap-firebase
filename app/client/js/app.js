@@ -2,6 +2,7 @@ App = Ember.Application.create();
 App.ENV = {
   FIREBASE_URL: 'https://ember-leap.firebaseio.com/'
 };
+require('./libs/foundation.min');
 require('./libs/leap');
 require('./libs/uuid');
 require('./libs/emberfire-latest');

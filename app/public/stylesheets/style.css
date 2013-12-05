@@ -13,22 +13,13 @@ canvas {
   background-color: white;
 }
 
-a {
-  color: #00B7FF;
-}
+/*#sidebar {*/
+  /*float: left;*/
+  /*max-width: 140px;*/
+  /*border-right 2px dotted gray;*/
+/*}*/
 
-#sidebar {
-  float: left;
-  max-width: 140px;
-  border-right 2px dotted gray;
-}
-
-#content {
-  float: left;
-  max-width: calc(100% - 142px);
-}
-
-.row:after {
-  clear:both;
-}
-
+/*#content {*/
+  /*float: left;*/
+  /*max-width: calc(100% - 142px);*/
+/*}*/
