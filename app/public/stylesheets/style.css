@@ -4,22 +4,18 @@ body {
 }
 
 footer {
-  position: absolute;
-  bottom:0px;
+  text-align: center;
   width:100%;
 }
 
-canvas {
-  background-color: white;
+.border-bottom {
+  border-bottom: 1px solid;
 }
 
-/*#sidebar {*/
-  /*float: left;*/
-  /*max-width: 140px;*/
-  /*border-right 2px dotted gray;*/
-/*}*/
+.border-left {
+  border-left: 1px solid;
+}
 
-/*#content {*/
-  /*float: left;*/
-  /*max-width: calc(100% - 142px);*/
-/*}*/
+.row {
+  background-color: #FCFEFF;
+}

@@ -9,16 +9,13 @@ Channels
 <ul>
 {{#each}}
  <li>
-   <span>{{name}}</span>
-   {{#link-to 'channels.broadcast' id}}broadcast{{/link-to}}
-   |
-   {{#link-to 'channels.watch' id}}just watch{{/link-to}}
+   {{#link-to 'channels.watch' id}}{{name}}{{/link-to}}
  </li>
 {{/each}}
 </ul>
 </div>
 
-<div id="content" class="large-10 columns">
+<div id="content" class="large-10 columns border-left">
 {{outlet}}
 </div>
 </div>

@@ -1,8 +1,7 @@
 App.Router.map(function() {
   this.resource('index', {path: '/'})
   this.resource('channels', function(){
-    this.route('broadcast', {path: '/:id/broadcast'})
-    this.route('watch', {path: '/:id/watch'})
+    this.route('watch', {path: '/:id'})
   });
   this.route('sorry');
 });
@@ -40,16 +39,11 @@ App.ChannelsRoute = Em.Route.extend({
   }
 });
 
-App.ChannelsBroadcastRoute = Em.Route.extend({
+App.ChannelsWatchRoute = Em.Route.extend({
   model: function(params, transition) {
     var fb = new Firebase(App.ENV.FIREBASE_URL + '/channel/'+ params.id + '/stream/' + App.CurrentUser.id);
     new App.FirebaseFramePusher(fb).start();
-    return {fb: fb, frameSource: new App.LeapFrameSource(), id: params.id};
-  }
-});
 
-App.ChannelsWatchRoute = Em.Route.extend({
-  model: function(params, transition) {
     var fb = new Firebase(App.ENV.FIREBASE_URL + '/channel/'+ params.id + '/stream');
     return {frameSource: new App.FirebaseFrameSource(fb)};
   }
