@@ -1,17 +1,28 @@
 App.HandVisualizerComponent = Ember.Component.extend({
+  init: function(){
+    this.addBeforeObserver('frameSource', this.unsubscribeFrameSource);
+    this.addObserver('frameSource', this.frameSourceDidChange);
+    this.subscribeToFrameSource(this.get('frameSource'));
+  },
+  frameSourceDidChange: function(sender, key, value, rev){
+    var frameSource = this.get("frameSource");
+    this.subscribeToFrameSource(frameSource);
+  },
   didInsertElement: function(){
-    console.log('did insert element')
-    var frameSource = this.get("frameSource")
     var canvas = document.getElementById("leap-overlay");
-    // fullscreen
-    canvas.width = 800;
-    canvas.height = 400;
-    var ctx = canvas.getContext("2d");
-    ctx.translate(canvas.width/2,canvas.height);
-    ctx.fillStyle = "rgba(0,0,0,0.7)";
+    ctx = canvas.getContext("2d");
+    ctx.translate(canvas.width/2, canvas.height);
+    this.set('isInDOM', true);
+  },
+  subscribeToFrameSource: function(frameSource) {
+    var self = this;
 
     var renderer = function(channels) {
+      if(!self.get('isInDOM')) { return; }
+      var canvas = document.getElementById("leap-overlay");
+      ctx = canvas.getContext("2d");
       ctx.clearRect(-canvas.width/2,-canvas.height,canvas.width,canvas.height);
+      ctx.fillStyle = 'rgba(0,0,0,0.7)';
 
       _.each(channels, function(frame){
         if(!frame) { return; }
@@ -22,11 +33,13 @@ App.HandVisualizerComponent = Ember.Component.extend({
           // get the pointable's position
           if(pointable) {
             var pos = pointable.tipPosition;
-
             // create a circle for each pointable
             var radius = Math.min(600/Math.abs(pos[2]),20);
             ctx.beginPath();
-            ctx.arc(pos[0]-radius/2,-pos[1]-radius/2,radius,0,2*Math.PI);
+            var x = pos[0] -radius/2;
+            var y = -pos[1] -radius/2;
+            var endAngle = 2*Math.PI;
+            ctx.arc(x,y,radius,0,endAngle);
             ctx.fill();
           }
         });
@@ -34,6 +47,10 @@ App.HandVisualizerComponent = Ember.Component.extend({
     }
     this.set('renderer', renderer);
     frameSource.subscribe(renderer);
+  },
+  unsubscribeFrameSource: function() {
+    var frameSource = this.get("frameSource")
+    frameSource.stopListening(this.get('renderer'));
   },
   willDestroyElement: function(){
     var frameSource = this.get("frameSource")

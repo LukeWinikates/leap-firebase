@@ -39,13 +39,25 @@ App.ChannelsRoute = Em.Route.extend({
   }
 });
 
+App.Channel = Ember.Object.extend({
+  init: function() {
+    var framePusherRef = new Firebase(App.ENV.FIREBASE_URL + '/channel/'+ this.id + '/stream/' + App.CurrentUser.id);
+    var framePusher = new App.FirebaseFramePusher(framePusherRef);
+    this.set('framePusher', framePusher);
+    var fb = new Firebase(App.ENV.FIREBASE_URL + '/channel/'+ this.id + '/stream');
+    this.set('frameSource', new App.FirebaseFrameSource(fb));
+  },
+  startBroadcasting: function() {
+    this.get('framePusher').start();
+  },
+  stopBroadcasting: function() {
+    this.get('framePusher').stop();
+  }
+});
+
 App.ChannelsWatchRoute = Em.Route.extend({
   model: function(params, transition) {
-    var fb = new Firebase(App.ENV.FIREBASE_URL + '/channel/'+ params.id + '/stream/' + App.CurrentUser.id);
-    new App.FirebaseFramePusher(fb).start();
-
-    var fb = new Firebase(App.ENV.FIREBASE_URL + '/channel/'+ params.id + '/stream');
-    return {frameSource: new App.FirebaseFrameSource(fb)};
+    return App.Channel.create(params);
   }
 });
 
