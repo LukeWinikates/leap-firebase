@@ -1,3 +1,20 @@
+App.ChannelsShowView = Ember.View.extend({
+  didInsertElement: function () {
+    var controller = this.get('controller');
+    var copyButton = $('.copy-button');
+    var clip = new ZeroClipboard(copyButton);
+    clip.on('dataRequested', function (client, args) {
+      client.setText(document.location.href);
+      controller.set('copied', true);
+      setTimeout(function(){
+        Ember.run.later(function(){
+          controller.set('copied', false);
+        });
+      }, 1500);
+    });
+  }
+})
+
 App.HandVisualizerComponent = Ember.Component.extend({
   init: function(){
     this.addBeforeObserver('frameSource', this.unsubscribeFrameSource);

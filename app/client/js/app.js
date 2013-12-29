@@ -1,3 +1,5 @@
+require('./libs/ZeroClipboard.min');
+ZeroClipboard.setDefaults( { moviePath: '/swf/zeroclipboard.swf' } );
 App = Ember.Application.create();
 App.ENV = {
   FIREBASE_URL: 'https://ember-leap.firebaseio.com/'
