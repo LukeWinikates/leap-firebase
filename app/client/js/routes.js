@@ -1,7 +1,7 @@
 App.Router.map(function() {
   this.resource('index', {path: '/'})
   this.resource('channels', function(){
-    this.route('watch', {path: '/:id'})
+    this.route('show', {path: '/:id'})
   });
   this.route('sorry');
 });
@@ -55,7 +55,7 @@ App.Channel = Ember.Object.extend({
   }
 });
 
-App.ChannelsWatchRoute = Em.Route.extend({
+App.ChannelsShowRoute = Em.Route.extend({
   model: function(params, transition) {
     return App.Channel.create(params);
   }

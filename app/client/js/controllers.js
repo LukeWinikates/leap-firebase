@@ -4,12 +4,12 @@ App.ChannelsController = Ember.ArrayController.extend({
       var id = uuid.v4();
       var fb = new Firebase(App.ENV.FIREBASE_URL + '/channels');
       fb.child(id).set({id: id, name: 'something', timestamp: Date.now()})
-      this.transitionToRoute('channels.watch', id);
+      this.transitionToRoute('channels.show', id);
     }
   }
 });
 
-App.ChannelsWatchController = Ember.ObjectController.extend({
+App.ChannelsShowController = Ember.ObjectController.extend({
   init: function() {
     this.addBeforeObserver('model', this.stopBroadcasting);
     this.addObserver('model', this.startBroadcasting);
