@@ -24,7 +24,8 @@ App.HandVisualizerComponent = Ember.Component.extend({
       ctx.clearRect(-canvas.width/2,-canvas.height,canvas.width,canvas.height);
       ctx.fillStyle = 'rgba(0,0,0,0.7)';
 
-      _.each(channels, function(frame){
+      _.each(channels, function(frame, userId){
+        ctx.fillStyle = self.fillColorForChannel(userId);
         if(!frame) { return; }
         // render circles based on pointable positions
         var pointables = frame.pointables;
@@ -55,5 +56,11 @@ App.HandVisualizerComponent = Ember.Component.extend({
   willDestroyElement: function(){
     var frameSource = this.get("frameSource")
     frameSource.stopListening(this.get('renderer'));
+  },
+  fillColorForChannel: function(userId) {
+    if(userId == App.CurrentUser.id) {
+      return 'rgba(0,0,0,0.7)';
+    }
+    return 'rgba(0,140, 186, 0.7)';
   }
 });
