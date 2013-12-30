@@ -1,7 +1,11 @@
 App.ChannelsShowView = Ember.View.extend({
   didInsertElement: function () {
+    this.rebindCopyButton();
+  },
+  rebindCopyButton: function () {
+    var self = this;
     var controller = this.get('controller');
-    var copyButton = $('.copy-button');
+    var copyButton = this.$('.copy-button');
     var clip = new ZeroClipboard(copyButton);
     clip.on('dataRequested', function (client, args) {
       client.setText(document.location.href);
@@ -9,6 +13,9 @@ App.ChannelsShowView = Ember.View.extend({
       setTimeout(function(){
         Ember.run.later(function(){
           controller.set('copied', false);
+          Ember.run.later(function(){
+            self.rebindCopyButton();
+          });
         });
       }, 1500);
     });
